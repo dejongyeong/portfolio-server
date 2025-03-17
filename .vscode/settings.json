@@ -1,0 +1,16 @@
+{
+  "workbench.colorTheme": "Dracula Theme",
+  "workbench.iconTheme": "vscode-icons",
+  "editor.fontSize": 12,
+  "editor.indentSize": "tabSize",
+  "editor.mouseWheelZoom": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.dropIntoEditor.preferences": [],
+  "editor.cursorBlinking": "expand",
+  "terminal.integrated.fontSize": 12,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  }
+}
