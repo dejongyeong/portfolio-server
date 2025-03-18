@@ -1,0 +1,9 @@
+# 1.0.0 (2025-03-18)
+
+
+### Features
+
+* create configuration to read from .env ([8340baf](https://github.com/dejongyeong/portfolio-server/commit/8340baf4ce0f963e2c8207726690d1c7a8a85777))
+* migrate jest testing to vitest ([1740982](https://github.com/dejongyeong/portfolio-server/commit/17409827140f7b8f00ec00f39302fbcaf2d2a587))
+* scaffold project with commitlint, husky, and lintstaged ([43a983d](https://github.com/dejongyeong/portfolio-server/commit/43a983d9d0ae3cba0c209db6f3ae7766f90b6a9a))
+* semantic release with github actions integration ([d0f8bd3](https://github.com/dejongyeong/portfolio-server/commit/d0f8bd30b6a7e43a0b81b7502d0425de98f0e7b0))
