@@ -18,11 +18,10 @@
     "noFallthroughCasesInSwitch": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "allowJs": true,
-    "strict": true,
     "paths": {
       "@/*": ["src/*"],
-      "@models": ["src/models/*"],
+      "@config/*": ["src/config/*"],
+      "@models/*": ["src/models/*"],
       "@test/*": ["test/*"]
     }
   },
