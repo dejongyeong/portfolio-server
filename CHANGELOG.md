@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/dejongyeong/portfolio-server/compare/v1.0.0...v1.1.0) (2025-03-18)
+
+
+### Features
+
+* prisma postgresql integration ([c8de3fe](https://github.com/dejongyeong/portfolio-server/commit/c8de3fe1e641673877d11699a79aa38fe2a8014f))
+
 # 1.0.0 (2025-03-18)
 
 
