@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/dejongyeong/portfolio-server/compare/v1.1.0...v1.1.1) (2025-03-18)
+
+
+### Bug Fixes
+
+* fix unable to read env during ci ([89bfbb6](https://github.com/dejongyeong/portfolio-server/commit/89bfbb6b1ed506e01082d4030a526eb6049c9d76))
+
 # [1.1.0](https://github.com/dejongyeong/portfolio-server/compare/v1.0.0...v1.1.0) (2025-03-18)
 
 
