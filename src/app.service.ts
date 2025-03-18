@@ -5,7 +5,7 @@ export class AppService {
   // constructor(private readonly config: ConfigService) {}
 
   getHello(): string {
-    // const port = this.config.get<number>("PORT");
+    // const db = this.config.get<string>("DATABASE_URL");
 
     return "Hello World!";
   }
