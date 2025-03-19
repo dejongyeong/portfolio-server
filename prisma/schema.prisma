@@ -25,8 +25,9 @@ model Publication {
   id          String   @id @default(cuid())
   title       String
   abstract    String
+  keywords    String[]
   mainAuthor  String
-  CoAuthors   String[]
+  coAuthors   String[]
   link        String
   publisher   String?
   published   Boolean  @default(false)
