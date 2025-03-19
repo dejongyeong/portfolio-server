@@ -5,6 +5,7 @@ import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { envValidationSchema } from "./config/env.validation";
 import { PrismaModule } from "./prisma/prisma.module";
+import { ProjectsModule } from "./projects/projects.module";
 import { PublicationsModule } from "./publications/publications.module";
 
 @Module({
@@ -19,6 +20,7 @@ import { PublicationsModule } from "./publications/publications.module";
     }),
     PrismaModule,
     PublicationsModule,
+    ProjectsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
