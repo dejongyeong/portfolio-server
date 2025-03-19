@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/dejongyeong/portfolio-server/compare/v1.1.1...v1.2.0) (2025-03-19)
+
+
+### Features
+
+* add swagger openapi description ([7d19292](https://github.com/dejongyeong/portfolio-server/commit/7d192920ea8942c69966a0f5a48618e3cd4fa693))
+
 ## [1.1.1](https://github.com/dejongyeong/portfolio-server/compare/v1.1.0...v1.1.1) (2025-03-18)
 
 
