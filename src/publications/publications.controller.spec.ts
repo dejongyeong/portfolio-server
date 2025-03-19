@@ -1,7 +1,6 @@
 import { Test, TestingModule } from "@nestjs/testing";
 
 import { PrismaModule } from "../prisma/prisma.module"; // Import the module containing PrismaService
-// Import PrismaService
 import { PublicationsController } from "./publications.controller";
 import { PublicationsService } from "./publications.service";
 

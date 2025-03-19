@@ -10,8 +10,7 @@ import {
 } from "@nestjs/common";
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
 
-import { ValidationPipe } from "@/common/pipe/validation.pipe";
-
+import { ValidationPipe } from "../common/pipe/validation.pipe";
 import { CreatePublicationDto } from "./dto/create-publication.dto";
 import { UpdatePublicationDto } from "./dto/update-publication.dto";
 import { Publication } from "./entities/publication.entity";
