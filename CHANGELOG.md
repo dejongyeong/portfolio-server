@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/dejongyeong/portfolio-server/compare/v1.3.0...v1.4.0) (2025-03-19)
+
+
+### Features
+
+* implement crud operations for project model ([154aa22](https://github.com/dejongyeong/portfolio-server/commit/154aa227844ca4dd07e4b14eaecd34e48bf8b7b4))
+
 # [1.3.0](https://github.com/dejongyeong/portfolio-server/compare/v1.2.0...v1.3.0) (2025-03-19)
 
 
