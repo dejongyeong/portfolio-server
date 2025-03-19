@@ -14,7 +14,7 @@ datasource db {
 }
 
 model User {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   email       String   @unique
   password    String
   createdAt   DateTime @default(now())
@@ -22,13 +22,13 @@ model User {
 }
 
 model Publication {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   title       String
   abstract    String
   keywords    String[]
   mainAuthor  String
   coAuthors   String[]
-  link        String
+  link        String?
   publisher   String?
   published   Boolean  @default(false)
   publishedAt DateTime?
@@ -37,7 +37,7 @@ model Publication {
 }
 
 model Project {
-  id          String   @id @default(cuid())
+  id          String   @id @default(uuid())
   title       String
   description String
   year        Int
