@@ -1,3 +1,15 @@
+# [1.3.0](https://github.com/dejongyeong/portfolio-server/compare/v1.2.0...v1.3.0) (2025-03-19)
+
+
+### Bug Fixes
+
+* use full relative path ([bac7d72](https://github.com/dejongyeong/portfolio-server/commit/bac7d72d8d69638dc7f64c23eb1bd4f2b7bbd582))
+
+
+### Features
+
+* implement crud operations for publication model ([9873639](https://github.com/dejongyeong/portfolio-server/commit/9873639695d7bd9085e9bc24c46fca51dc7d62fd))
+
 # [1.2.0](https://github.com/dejongyeong/portfolio-server/compare/v1.1.1...v1.2.0) (2025-03-19)
 
 
