@@ -18,6 +18,12 @@ export class ProjectsService {
     return this.prisma.project.findMany();
   }
 
+  getFeatured() {
+    return this.prisma.project.findMany({
+      where: { isFeatured: true },
+    });
+  }
+
   findOne(id: string) {
     return this.prisma.project.findUnique({
       where: { id },

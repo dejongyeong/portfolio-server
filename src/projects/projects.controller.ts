@@ -33,6 +33,12 @@ export class ProjectsController {
     return this.projectsService.findAll();
   }
 
+  @Get("featured")
+  @ApiOkResponse({ type: [Project], description: "Get all featured projects" })
+  async findFeatured() {
+    return this.projectsService.getFeatured();
+  }
+
   @Get(":id")
   @ApiOkResponse({ type: Project, description: "Get project by ID" })
   async findOne(@Param("id", ParseUUIDPipe) id: string) {

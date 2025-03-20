@@ -1,7 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 export class Publication {
-  @ApiProperty()
+  @ApiProperty({ type: String, format: "uuid" })
   id: string;
 
   @ApiProperty({ type: String })
@@ -26,14 +26,14 @@ export class Publication {
   publisher: string;
 
   @ApiPropertyOptional({ type: Boolean, default: false })
-  published: boolean = false;
+  published: boolean;
 
   @ApiPropertyOptional({ type: Date })
   publishedAt: Date;
 
-  @ApiProperty()
+  @ApiProperty({ type: Date })
   createdAt: Date;
 
-  @ApiProperty()
+  @ApiProperty({ type: Date })
   updatedAt: Date;
 }

@@ -1,6 +1,7 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import {
   IsArray,
+  IsBoolean,
   IsInt,
   IsNotEmpty,
   IsOptional,
@@ -36,6 +37,10 @@ export class CreateProjectDto {
   @IsArray()
   @IsString({ each: true })
   tech: string[] = [];
+
+  @ApiProperty({ type: Boolean })
+  @IsBoolean()
+  isFeatured: boolean = false;
 
   @ApiPropertyOptional({ type: String })
   @IsOptional()

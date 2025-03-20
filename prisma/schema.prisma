@@ -43,6 +43,7 @@ model Project {
   year        Int
   type        String   @default("personal")
   tech        String[]
+  isFeatured  Boolean  @default(false)
   githubLink  String?
   previewLink String?
   imageLink   String? // optional image url (can be null)
