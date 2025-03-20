@@ -1,3 +1,4 @@
+import { ConfigService } from "@nestjs/config";
 import { NestFactory } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 
@@ -16,7 +17,11 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api", app, document);
 
-  await app.listen(process.env.PORT ?? 3000);
+  // env config
+  const configService = app.get(ConfigService);
+
+  app.enableCors();
+  await app.listen(configService.get<number>("app.port", 3000));
 }
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
