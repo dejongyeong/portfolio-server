@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { PrismaService } from "../prisma/prisma.service";
+import { PrismaService } from "../common/prisma/prisma.service";
 import { ProjectsService } from "./projects.service";
 
 describe("ProjectsService", () => {

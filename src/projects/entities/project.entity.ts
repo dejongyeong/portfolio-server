@@ -31,9 +31,9 @@ export class Project {
   @ApiPropertyOptional({ type: String })
   imageLink: string;
 
-  @ApiProperty({ type: Date })
+  @ApiPropertyOptional({ type: Date, default: new Date() })
   createdAt: Date;
 
-  @ApiProperty({ type: Date })
+  @ApiPropertyOptional({ type: Date })
   updatedAt: Date;
 }

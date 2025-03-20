@@ -31,9 +31,9 @@ export class Publication {
   @ApiPropertyOptional({ type: Date })
   publishedAt: Date;
 
-  @ApiProperty({ type: Date })
+  @ApiPropertyOptional({ type: Date, default: new Date() })
   createdAt: Date;
 
-  @ApiProperty({ type: Date })
+  @ApiPropertyOptional({ type: Date })
   updatedAt: Date;
 }

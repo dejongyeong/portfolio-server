@@ -3,8 +3,8 @@ import { Test, TestingModule } from "@nestjs/testing";
 import request from "supertest";
 import { App } from "supertest/types";
 
+import { PrismaModule } from "../src/common/prisma/prisma.module";
 import { AppModule } from "./../src/app.module";
-import { PrismaModule } from "./../src/prisma/prisma.module";
 
 describe("AppController (e2e)", () => {
   let app: INestApplication<App>;
