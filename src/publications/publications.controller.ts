@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   ParseUUIDPipe,
   Patch,
@@ -50,7 +51,12 @@ export class PublicationsController {
     @Param("id", ParseUUIDPipe)
     id: string,
   ) {
-    return this.publicationsService.findOne(id);
+    const publication = await this.publicationsService.findOne(id);
+
+    if (!publication) {
+      throw new NotFoundException(`Publication with ID ${id} not found`);
+    }
+    return publication;
   }
 
   @Patch(":id")
@@ -63,6 +69,7 @@ export class PublicationsController {
     id: string,
     @Body(new ValidationPipe()) updatePublicationDto: UpdatePublicationDto,
   ) {
+    // record not found handle by PrismaClientExceptionFilter
     return this.publicationsService.update(id, updatePublicationDto);
   }
 
@@ -75,6 +82,7 @@ export class PublicationsController {
     @Param("id", ParseUUIDPipe)
     id: string,
   ) {
+    // record not found handle by PrismaClientExceptionFilter
     return this.publicationsService.remove(id);
   }
 }

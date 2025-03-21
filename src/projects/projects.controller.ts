@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   ParseUUIDPipe,
   Patch,
@@ -42,7 +43,12 @@ export class ProjectsController {
   @Get(":id")
   @ApiOkResponse({ type: Project, description: "Get project by ID" })
   async findOne(@Param("id", ParseUUIDPipe) id: string) {
-    return this.projectsService.findOne(id);
+    const project = await this.projectsService.findOne(id);
+
+    if (!project) {
+      throw new NotFoundException(`Project with ID ${id} not found`);
+    }
+    return project;
   }
 
   @Patch(":id")
@@ -51,12 +57,14 @@ export class ProjectsController {
     @Param("id", ParseUUIDPipe) id: string,
     @Body(new ValidationPipe()) updateProjectDto: UpdateProjectDto,
   ) {
+    // record not found handle by PrismaClientExceptionFilter
     return this.projectsService.update(id, updateProjectDto);
   }
 
   @Delete(":id")
   @ApiOkResponse({ type: Project, description: "Delete project by ID" })
   async remove(@Param("id", ParseUUIDPipe) id: string) {
+    // record not found handle by PrismaClientExceptionFilter
     return this.projectsService.remove(id);
   }
 }
