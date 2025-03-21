@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/dejongyeong/portfolio-server/compare/v1.4.0...v1.5.0) (2025-03-21)
+
+
+### Features
+
+* add error handling during crud operations ([a5e7037](https://github.com/dejongyeong/portfolio-server/commit/a5e7037bdd193c12d56abdf1a1d63af74311930f))
+
 # [1.4.0](https://github.com/dejongyeong/portfolio-server/compare/v1.3.0...v1.4.0) (2025-03-19)
 
 
