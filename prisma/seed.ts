@@ -1,9 +1,18 @@
+import "dotenv/config";
+
 import { PrismaClient } from "@prisma/client";
+import * as bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function main() {
+  // Ensure environment variables are loaded
+  if (!process.env.APP_EMAIL || !process.env.APP_PASSWORD) {
+    throw new Error("⚠️ Missing environment variables");
+  }
+
   // clear existing data
+  await prisma.user.deleteMany();
   await prisma.publication.deleteMany();
   await prisma.project.deleteMany();
 
@@ -38,7 +47,17 @@ async function main() {
     },
   });
 
-  console.log({ publication, project });
+  // create hashed password
+  const salt = bcrypt.genSaltSync(10);
+  const hashed = bcrypt.hashSync(process.env.APP_PASSWORD, salt);
+  const user = await prisma.user.create({
+    data: {
+      email: process.env.APP_EMAIL,
+      password: hashed,
+    },
+  });
+
+  console.log({ publication, project, user });
   console.log("🌱 Seeding finished.");
 }
 

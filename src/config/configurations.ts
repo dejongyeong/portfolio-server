@@ -7,8 +7,14 @@ const AppConfig = registerAs("app", () => ({
 }));
 
 const DbConfig = registerAs("database", () => ({
-  // refactor this to your database configuration
   url: process.env.DATABASE_URL,
 }));
 
-export const configurations = [AppConfig, DbConfig];
+const AuthConfig = registerAs("auth", () => ({
+  // our password is stored in the .env file
+  // this project just has a single user
+  email: process.env.APP_EMAIL,
+  password: process.env.APP_PASSWORD,
+}));
+
+export const configurations = [AppConfig, DbConfig, AuthConfig];
