@@ -43,9 +43,7 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
-    const { password, ...userWithoutPassword } = user;
-    return userWithoutPassword;
+    return user;
   }
 
   // login user
