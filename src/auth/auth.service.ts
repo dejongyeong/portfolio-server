@@ -3,24 +3,23 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcryptjs";
 
+import { UserEntity } from "../users/entities/user.entity";
 import { UsersService } from "../users/users.service";
-import { LoginDto } from "./dto/login.dto";
-import { AuthEntity } from "./entities/auth.entity";
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly configService: ConfigService,
     private readonly userService: UsersService,
     private readonly jwtService: JwtService,
   ) {}
 
-  async login({ email, password }: LoginDto): Promise<AuthEntity> {
-    // fetch user with the given email
+  async validateUser({ email, password }: { email: string; password: string }) {
     const user = await this.userService.findByEmail(email);
-
     if (!user) {
       throw new NotFoundException("User not found");
     }
@@ -31,16 +30,27 @@ export class AuthService {
       throw new UnauthorizedException("Invalid password");
     }
 
-    // generate jwt containing user id and return it
-    return { accessToken: this.jwtService.sign({ userId: user.id }) };
-  }
-
-  async validateUser({ email }: { email: string }) {
-    const user = await this.userService.findByEmail(email);
-
-    if (!user) {
-      throw new NotFoundException("User not found");
-    }
     return user;
   }
+
+  async login(user: UserEntity) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
+    const { password, ...userWithoutPassword } = user;
+
+    // generate jwt token
+    const payload = {
+      sub: user.id,
+      user: userWithoutPassword,
+    };
+
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+      refresh_token: await this.jwtService.signAsync(payload, {
+        expiresIn: this.configService.get<string | number>("auth.jwtExpiresIn"),
+      }),
+    };
+  }
+
+  // remove token
+  async logout() {}
 }

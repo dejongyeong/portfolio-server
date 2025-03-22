@@ -2,5 +2,8 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class AuthEntity {
   @ApiProperty({ type: String })
-  accessToken: string;
+  access_token: string;
+
+  @ApiProperty({ type: String })
+  refresh_token: string;
 }
