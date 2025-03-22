@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/dejongyeong/portfolio-server/compare/v1.6.0...v1.6.1) (2025-03-22)
+
+
+### Bug Fixes
+
+* revert and reset db ([c12660c](https://github.com/dejongyeong/portfolio-server/commit/c12660c06e072f9884ec19e05401a2702a8d73cd))
+
 # [1.6.0](https://github.com/dejongyeong/portfolio-server/compare/v1.5.0...v1.6.0) (2025-03-22)
 
 
