@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/dejongyeong/portfolio-server/compare/v1.5.0...v1.6.0) (2025-03-22)
+
+
+### Features
+
+* user authentication with passport-jwt ([4a977ae](https://github.com/dejongyeong/portfolio-server/commit/4a977ae97949451e089b74862088ca6acbb465e5))
+
 # [1.5.0](https://github.com/dejongyeong/portfolio-server/compare/v1.4.0...v1.5.0) (2025-03-21)
 
 
