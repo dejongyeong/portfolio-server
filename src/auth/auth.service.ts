@@ -2,6 +2,7 @@ import {
   ConflictException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
@@ -18,6 +19,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
+  // validate user for local strategy
   async validateUser({ email, password }: { email: string; password: string }) {
     const user = await this.userService.findByEmail(email);
     if (!user) {
@@ -33,6 +35,20 @@ export class AuthService {
     return user;
   }
 
+  // validate user for jwt strategy
+  async validateJwtUser(sub: string) {
+    const user = await this.userService.findById(sub);
+
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
+    const { password, ...userWithoutPassword } = user;
+    return userWithoutPassword;
+  }
+
+  // login user
   async login(user: UserEntity) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
     const { password, ...userWithoutPassword } = user;

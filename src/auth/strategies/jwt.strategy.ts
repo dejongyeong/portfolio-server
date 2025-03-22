@@ -3,13 +3,13 @@ import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
 
-import { UsersService } from "../../users/users.service";
+import { AuthService } from "../auth.service";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
   constructor(
     configService: ConfigService,
-    private userService: UsersService,
+    private authService: AuthService,
   ) {
     const jwtSecret = configService.get<string>("JWT_SECRET");
     if (!jwtSecret) {
@@ -24,14 +24,12 @@ export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
   }
 
   async validate(payload: { sub: string }) {
-    const user = await this.userService.findById(payload.sub);
+    const user = await this.authService.validateJwtUser(payload.sub);
 
     if (!user) {
       throw new UnauthorizedException();
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
-    const { password, ...userWithoutPassword } = user;
-    return userWithoutPassword;
+    return user;
   }
 }
