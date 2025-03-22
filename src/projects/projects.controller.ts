@@ -8,9 +8,16 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  UseGuards,
 } from "@nestjs/common";
-import { ApiCreatedResponse, ApiOkResponse, ApiTags } from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiTags,
+} from "@nestjs/swagger";
 
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { ValidationPipe } from "../common/pipe/validation.pipe";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
@@ -23,6 +30,8 @@ export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @Post()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiCreatedResponse({ type: Project, description: "Create a new project" })
   async create(@Body(new ValidationPipe()) createProjectDto: CreateProjectDto) {
     return this.projectsService.create(createProjectDto);
@@ -52,6 +61,8 @@ export class ProjectsController {
   }
 
   @Patch(":id")
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: Project, description: "Update project by ID" })
   async update(
     @Param("id", ParseUUIDPipe) id: string,
@@ -62,6 +73,8 @@ export class ProjectsController {
   }
 
   @Delete(":id")
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOkResponse({ type: Project, description: "Delete project by ID" })
   async remove(@Param("id", ParseUUIDPipe) id: string) {
     // record not found handle by PrismaClientExceptionFilter

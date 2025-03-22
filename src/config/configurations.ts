@@ -15,6 +15,7 @@ const AuthConfig = registerAs("auth", () => ({
   // this project just has a single user
   email: process.env.APP_EMAIL,
   password: process.env.APP_PASSWORD,
+  jwtSecret: process.env.JWT_SECRET,
 }));
 
 export const configurations = [AppConfig, DbConfig, AuthConfig];

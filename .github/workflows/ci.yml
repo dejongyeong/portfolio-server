@@ -70,3 +70,4 @@ jobs:
         env:
           APP_EMAIL: ${{ secrets.APP_EMAIL }}
           APP_PASSWORD: ${{ secrets.APP_PASSWORD }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
