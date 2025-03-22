@@ -1,7 +1,7 @@
 import {
+  ConflictException,
   Injectable,
   NotFoundException,
-  UnauthorizedException,
 } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
@@ -27,7 +27,7 @@ export class AuthService {
     // compare the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException("Invalid password");
+      throw new ConflictException("Invalid credentials");
     }
 
     return user;
@@ -43,6 +43,8 @@ export class AuthService {
       user: userWithoutPassword,
     };
 
+    // access token is the bearer token
+    // refresh token is the token that is used to get a new access token
     return {
       access_token: await this.jwtService.signAsync(payload),
       refresh_token: await this.jwtService.signAsync(payload, {
