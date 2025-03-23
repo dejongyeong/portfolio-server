@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import {
+  ForbiddenException,
+  Injectable,
+  InternalServerErrorException,
+} from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { Request } from "express";
@@ -19,7 +23,9 @@ export class JwtRefreshStrategy extends PassportStrategy(
   ) {
     const secret = configService.get<string>("auth.jwtRefreshSecret");
     if (!secret) {
-      throw new Error("JWT_REFRESH_SECRET is not defined in environment");
+      throw new InternalServerErrorException(
+        "JWT_REFRESH_SECRET is not defined in environment",
+      );
     }
 
     super({
@@ -40,21 +46,16 @@ export class JwtRefreshStrategy extends PassportStrategy(
   }
 
   async validate(req: Request, payload: { sub: string }) {
+    // error handling is done when calling validateJwtUser
     const user = await this.authService.validateJwtUser(payload.sub);
-    if (!user) {
-      throw new UnauthorizedException();
-    }
 
+    // error handling is done when calling validateRefreshToken
     const token = await this.sessionsService.validateRefreshToken(user.id, req);
-    if (!token) {
-      throw new UnauthorizedException();
-    }
 
     // decoded refresh token
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    const data = await this.authService.verifyRefreshToken(token);
+    const data = (await this.authService.verifyRefreshToken(token)) as unknown;
     if (!data) {
-      throw new UnauthorizedException("Invalid refresh token");
+      throw new ForbiddenException("Invalid refresh token");
     }
 
     return { ...payload, token };

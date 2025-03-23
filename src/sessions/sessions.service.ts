@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import * as bcrypt from "bcryptjs";
 import { Request } from "express";
 
@@ -45,7 +49,7 @@ export class SessionsService {
   async validateRefreshToken(uid: string, req: Request) {
     const token = req.cookies?.refresh_token as string | undefined;
     if (!token) {
-      throw new UnauthorizedException();
+      throw new ForbiddenException("Refresh token not found");
     }
 
     // get the session from the database based on uid
@@ -58,13 +62,13 @@ export class SessionsService {
     });
 
     if (!session) {
-      throw new UnauthorizedException("User session not found");
+      throw new NotFoundException("User session not found");
     }
 
     // compare the token with the hashed token in the database
     const isTokenValid = await bcrypt.compare(token, session.token);
     if (!isTokenValid) {
-      throw new UnauthorizedException("Invalid refresh token");
+      throw new ForbiddenException("Invalid refresh token");
     }
 
     return token; // unhashed token

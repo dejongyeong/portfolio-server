@@ -1,5 +1,6 @@
 import {
   ConflictException,
+  ForbiddenException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -58,8 +59,7 @@ export class AuthService {
    * Verify refresh token
    *
    */
-  async verifyRefreshToken(token: string) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  async verifyRefreshToken(token: string): Promise<any> {
     return await this.jwtService.verifyAsync(token, {
       secret: this.configService.get<string>("auth.jwtRefreshSecret") as string,
     });
@@ -107,18 +107,18 @@ export class AuthService {
     // but the refresh token is hashed in the database
     const session = await this.sessionsService.findOne(uid);
     if (!session) {
-      throw new UnauthorizedException("Invalid refresh token");
+      throw new ForbiddenException("Invalid refresh token");
     }
 
     // compare the token with the hashed token in the database
     const isTokenValid = await bcrypt.compare(token, session.token);
     if (!isTokenValid) {
-      throw new UnauthorizedException("Invalid refresh token");
+      throw new ForbiddenException("Invalid refresh token");
     }
 
     const user = await this.userService.findById(uid);
     if (!user) {
-      throw new UnauthorizedException("User not found");
+      throw new NotFoundException("User not found");
     }
 
     // generate new tokens

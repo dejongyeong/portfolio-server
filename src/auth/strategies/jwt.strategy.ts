@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt, Strategy } from "passport-jwt";
@@ -13,7 +13,9 @@ export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
   ) {
     const jwtSecret = configService.get<string>("auth.jwtSecret");
     if (!jwtSecret) {
-      throw new Error("JWT_SECRET is not defined in environment variables");
+      throw new InternalServerErrorException(
+        "JWT_SECRET is not defined in environment variables",
+      );
     }
 
     super({
@@ -24,11 +26,12 @@ export class JwtStrategy extends PassportStrategy(Strategy, "jwt") {
   }
 
   async validate(payload: { sub: string }) {
+    // check is done when calling validateJwtUser, so no need to check here
     const user = await this.authService.validateJwtUser(payload.sub);
 
-    if (!user) {
-      throw new UnauthorizedException();
-    }
+    // if (!user) {
+    //   throw new UnauthorizedException();
+    // }
 
     return user;
   }
