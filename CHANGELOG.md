@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/dejongyeong/portfolio-server/compare/v1.6.1...v1.7.0) (2025-03-23)
+
+
+### Features
+
+* create session resources to handle refresh token ([072e414](https://github.com/dejongyeong/portfolio-server/commit/072e4143f5972e57af51801abe5a910b6a871d5e))
+
 ## [1.6.1](https://github.com/dejongyeong/portfolio-server/compare/v1.6.0...v1.6.1) (2025-03-22)
 
 
