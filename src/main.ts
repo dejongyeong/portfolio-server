@@ -2,6 +2,7 @@ import { ClassSerializerInterceptor } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { HttpAdapterHost, NestFactory, Reflector } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
+import cookieParser from "cookie-parser";
 
 import { AppModule } from "./app.module";
 import { PrismaClientExceptionFilter } from "./prisma-client-exception/prisma-client-exception.filter";
@@ -28,6 +29,9 @@ async function bootstrap() {
 
   // interceptors to exclude password
   app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
+
+  // cookie-parser
+  app.use(cookieParser());
 
   app.enableCors();
   await app.listen(configService.get<number>("app.port", 3000));

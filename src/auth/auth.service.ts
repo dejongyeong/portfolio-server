@@ -8,6 +8,7 @@ import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcryptjs";
 
+import { SessionsService } from "../sessions/sessions.service";
 import { UserEntity } from "../users/entities/user.entity";
 import { UsersService } from "../users/users.service";
 
@@ -16,10 +17,14 @@ export class AuthService {
   constructor(
     private readonly configService: ConfigService,
     private readonly userService: UsersService,
+    private readonly sessionsService: SessionsService,
     private readonly jwtService: JwtService,
   ) {}
 
-  // validate user for local strategy
+  /**
+   * Validate user for local strategy
+   *
+   */
   async validateUser({ email, password }: { email: string; password: string }) {
     const user = await this.userService.findByEmail(email);
     if (!user) {
@@ -35,7 +40,10 @@ export class AuthService {
     return user;
   }
 
-  // validate user for jwt strategy
+  /**
+   * Validate user for JWT strategy
+   *
+   */
   async validateJwtUser(sub: string) {
     const user = await this.userService.findById(sub);
 
@@ -46,27 +54,114 @@ export class AuthService {
     return user;
   }
 
-  // login user
-  async login(user: UserEntity) {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, unused-imports/no-unused-vars
-    const { password, ...userWithoutPassword } = user;
-
-    // generate jwt token
-    const payload = {
-      sub: user.id,
-      user: userWithoutPassword,
-    };
-
-    // access token is the bearer token
-    // refresh token is the token that is used to get a new access token
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-      refresh_token: await this.jwtService.signAsync(payload, {
-        expiresIn: this.configService.get<string | number>("auth.jwtExpiresIn"),
-      }),
-    };
+  /**
+   * Verify refresh token
+   *
+   */
+  async verifyRefreshToken(token: string) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+    return await this.jwtService.verifyAsync(token, {
+      secret: this.configService.get<string>("auth.jwtRefreshSecret") as string,
+    });
   }
 
-  // remove token
-  async logout() {}
+  /**
+   * Login user
+   *
+   */
+  async login(user: UserEntity) {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _, ...userWithoutPassword } = user;
+
+    const tokens = await this.generateToken(user.id, userWithoutPassword);
+
+    // store tokens into db
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 30); // set expiration to 30 days
+
+    await this.sessionsService.create({
+      userId: user.id,
+      token: bcrypt.hashSync(tokens.refresh_token, 10),
+      expiresAt: expiresAt,
+    });
+
+    return { ...tokens }; // return access token and refresh token
+  }
+
+  /**
+   * Logout user by revoking the refresh token from the database
+   *
+   */
+  async logout(uid: string) {
+    await this.sessionsService.revokeAllSessions(uid);
+
+    return { success: true };
+  }
+
+  /**
+   * Refresh the access token
+   *
+   */
+  async refreshToken(uid: string, token: string) {
+    // validate refresh token in the database
+    // but the refresh token is hashed in the database
+    const session = await this.sessionsService.findOne(uid);
+    if (!session) {
+      throw new UnauthorizedException("Invalid refresh token");
+    }
+
+    // compare the token with the hashed token in the database
+    const isTokenValid = await bcrypt.compare(token, session.token);
+    if (!isTokenValid) {
+      throw new UnauthorizedException("Invalid refresh token");
+    }
+
+    const user = await this.userService.findById(uid);
+    if (!user) {
+      throw new UnauthorizedException("User not found");
+    }
+
+    // generate new tokens
+    const tokens = await this.generateToken(uid, user);
+
+    // revoke all sessions
+    await this.sessionsService.revokeAllSessions(uid);
+
+    // store new refresh token into db
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 30); // set expiration to 30 days
+
+    await this.sessionsService.create({
+      userId: user.id,
+      token: bcrypt.hashSync(tokens.refresh_token, 10),
+      expiresAt: expiresAt,
+    });
+
+    return tokens;
+  }
+
+  /**
+   * Generate token
+   *
+   */
+  private async generateToken(sub: string, user: Omit<UserEntity, "password">) {
+    const payload = { sub, user };
+
+    // access token is the bearer token
+    const accessToken = await this.jwtService.signAsync(payload, {
+      secret: this.configService.get<string>("auth.jwtSecret"),
+      expiresIn: this.configService.get<string | number>("auth.jwtExpiresIn"),
+    });
+
+    // refresh token is the token that is used to get a new access token
+    // longer expiry date
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      expiresIn: this.configService.get<string | number>(
+        "auth.jwtRefreshExpiresIn",
+      ),
+      secret: this.configService.get<string>("auth.jwtRefreshSecret"),
+    });
+
+    return { access_token: accessToken, refresh_token: refreshToken };
+  }
 }

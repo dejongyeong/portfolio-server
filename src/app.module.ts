@@ -9,6 +9,8 @@ import { configurations } from "./config/configurations";
 import { envValidationSchema } from "./config/env.validation";
 import { ProjectsModule } from "./projects/projects.module";
 import { PublicationsModule } from "./publications/publications.module";
+import { SessionsModule } from "./sessions/sessions.module";
+import { SessionsService } from "./sessions/sessions.service";
 import { UsersModule } from "./users/users.module";
 
 @Module({
@@ -27,8 +29,9 @@ import { UsersModule } from "./users/users.module";
     ProjectsModule,
     AuthModule,
     UsersModule,
+    SessionsModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, SessionsService],
 })
 export class AppModule {}
