@@ -24,7 +24,7 @@ import { UpdatePublicationDto } from "./dto/update-publication.dto";
 import { Publication } from "./entities/publication.entity";
 import { PublicationsService } from "./publications.service";
 
-@Controller("publications")
+@Controller({ path: "publications", version: "1" })
 @ApiTags("Publications")
 export class PublicationsController {
   constructor(private readonly publicationsService: PublicationsService) {}

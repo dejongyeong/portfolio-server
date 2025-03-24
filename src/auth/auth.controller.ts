@@ -27,7 +27,7 @@ type TRequestUser = {
   token: string;
 };
 
-@Controller("auth")
+@Controller({ path: "auth", version: "1" })
 @ApiTags("Auth")
 export class AuthController {
   constructor(
