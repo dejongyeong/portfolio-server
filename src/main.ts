@@ -3,6 +3,7 @@ import { ConfigService } from "@nestjs/config";
 import { HttpAdapterHost, NestFactory, Reflector } from "@nestjs/core";
 import { DocumentBuilder, SwaggerModule } from "@nestjs/swagger";
 import cookieParser from "cookie-parser";
+import helmet from "helmet";
 
 import { AppModule } from "./app.module";
 import { PrismaClientExceptionFilter } from "./prisma-client-exception/prisma-client-exception.filter";
@@ -25,6 +26,9 @@ async function bootstrap() {
 
   // env config
   const configService = app.get(ConfigService);
+
+  // helmet for security
+  app.use(helmet());
 
   // handling prisma exceptions
   const { httpAdapter } = app.get(HttpAdapterHost);
