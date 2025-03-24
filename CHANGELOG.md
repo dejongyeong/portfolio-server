@@ -1,3 +1,11 @@
+# [1.8.0](https://github.com/dejongyeong/portfolio-server/compare/v1.7.0...v1.8.0) (2025-03-24)
+
+
+### Features
+
+* add rate limiting to all routes ([dc3c0c8](https://github.com/dejongyeong/portfolio-server/commit/dc3c0c85de6e36292b7fe17dc668c697daf2eb67))
+* add versioning to api routes ([c815c23](https://github.com/dejongyeong/portfolio-server/commit/c815c2331076c7e335a56d7d1f5ae29df820a59a))
+
 # [1.7.0](https://github.com/dejongyeong/portfolio-server/compare/v1.6.1...v1.7.0) (2025-03-23)
 
 
