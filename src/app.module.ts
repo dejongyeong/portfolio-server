@@ -1,5 +1,6 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
+import { ThrottlerModule } from "@nestjs/throttler";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
@@ -24,6 +25,7 @@ import { UsersModule } from "./users/users.module";
         abortEarly: true,
       },
     }),
+    ThrottlerModule.forRoot({ throttlers: [{ ttl: 60000, limit: 10 }] }), // 10 requests per minute; ttl in ms
     PrismaModule,
     PublicationsModule,
     ProjectsModule,
