@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/dejongyeong/portfolio-server/compare/v1.8.0...v1.9.0) (2025-03-24)
+
+
+### Features
+
+* add helmet to protect headers ([54a05f3](https://github.com/dejongyeong/portfolio-server/commit/54a05f37f476a72d61b26636b6bc9cef65dc4e11))
+
 # [1.8.0](https://github.com/dejongyeong/portfolio-server/compare/v1.7.0...v1.8.0) (2025-03-24)
 
 
