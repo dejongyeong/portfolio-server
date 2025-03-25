@@ -12,6 +12,10 @@ import { AuthService } from "./auth.service";
 describe("AuthService", () => {
   let service: AuthService;
 
+  beforeAll(() => {
+    process.env.RESEND_API_KEY = "re_1234567890"; // mock the api key
+  });
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
