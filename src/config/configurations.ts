@@ -4,6 +4,7 @@ const AppConfig = registerAs("app", () => ({
   env: process.env.NODE_ENV,
   port: process.env.PORT,
   baseUrl: process.env.BASE_URL,
+  frontendUrl: process.env.FRONTEND_URL,
 }));
 
 const DbConfig = registerAs("database", () => ({
@@ -20,4 +21,8 @@ const AuthConfig = registerAs("auth", () => ({
   jwtRefreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN,
 }));
 
-export const configurations = [AppConfig, DbConfig, AuthConfig];
+const EmailConfig = registerAs("email", () => ({
+  resend: process.env.RESEND_API_KEY,
+}));
+
+export const configurations = [AppConfig, DbConfig, AuthConfig, EmailConfig];

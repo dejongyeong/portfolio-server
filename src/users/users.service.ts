@@ -20,6 +20,12 @@ export class UsersService {
     });
   }
 
+  findByResetPasswordToken(token: string) {
+    return this.prisma.user.findFirst({
+      where: { resetPasswordToken: token },
+    });
+  }
+
   update(id: string, updateUserDto: UpdateUserDto) {
     // hash password if it's provided
     if (updateUserDto.password) {

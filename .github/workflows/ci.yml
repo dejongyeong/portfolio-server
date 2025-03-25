@@ -74,3 +74,5 @@ jobs:
           JWT_EXPIRES_IN: ${{ vars.JWT_EXPIRES_IN }}
           JWT_REFRESH_SECRET: ${{ secrets.JWT_REFRESH_SECRET }}
           JWT_REFRESH_EXPIRES_IN: ${{ vars.JWT_REFRESH_EXPIRES_IN }}
+          FRONTEND_URL: ${{ vars.FRONTEND_URL }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}

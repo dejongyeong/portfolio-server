@@ -6,6 +6,7 @@ export const envValidationSchema = Joi.object({
     .default("development"),
   PORT: Joi.number().default(3000),
   BASE_URL: Joi.string().default("http://localhost"),
+  FRONTEND_URL: Joi.string().default("http://localhost:3000"),
   DATABASE_URL: Joi.string().optional(),
   APP_EMAIL: Joi.string().email().required(),
   APP_PASSWORD: Joi.string().required(),
@@ -15,4 +16,5 @@ export const envValidationSchema = Joi.object({
   JWT_REFRESH_EXPIRES_IN: Joi.alternatives(Joi.string(), Joi.number()).default(
     "30d",
   ),
+  RESEND_API_KEY: Joi.string().required(),
 });

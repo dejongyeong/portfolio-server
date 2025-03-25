@@ -3,6 +3,8 @@ import { JwtService } from "@nestjs/jwt";
 import { Test, TestingModule } from "@nestjs/testing";
 
 import { PrismaService } from "../common/prisma/prisma.service";
+import { EmailService } from "../email/email.service";
+import { ResendService } from "../email/resend/resend.service";
 import { SessionsService } from "../sessions/sessions.service";
 import { UsersService } from "../users/users.service";
 import { AuthService } from "./auth.service";
@@ -16,6 +18,8 @@ describe("AuthService", () => {
         AuthService,
         PrismaService,
         JwtService,
+        EmailService,
+        ResendService,
         UsersService,
         ConfigService,
         SessionsService,

@@ -1,14 +1,17 @@
 import {
+  BadRequestException,
   ConflictException,
   ForbiddenException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from "@nestjs/common";
+import { randomStringGenerator } from "@nestjs/common/utils/random-string-generator.util";
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcryptjs";
 
+import { EmailService } from "../email/email.service";
 import { SessionsService } from "../sessions/sessions.service";
 import { UserEntity } from "../users/entities/user.entity";
 import { UsersService } from "../users/users.service";
@@ -20,6 +23,7 @@ export class AuthService {
     private readonly userService: UsersService,
     private readonly sessionsService: SessionsService,
     private readonly jwtService: JwtService,
+    private readonly emailService: EmailService,
   ) {}
 
   /**
@@ -96,6 +100,65 @@ export class AuthService {
     await this.sessionsService.revokeAllSessions(uid);
 
     return { success: true };
+  }
+
+  /**
+   * Forgot password
+   * Reference: https://medium.com/@wkwong.nathan/implement-forgot-reset-password-flow-with-nest-js-2bce846b0495
+   *
+   */
+  async forgotPassword(email: string) {
+    const user = await this.userService.findByEmail(email.toLowerCase().trim());
+    if (!user) {
+      throw new NotFoundException("User not found");
+    }
+
+    // generate a reset password token
+    const token = bcrypt.hashSync(randomStringGenerator(), 10);
+
+    // update the user with the reset password token
+    await this.userService.update(user.id, {
+      resetPasswordToken: token,
+      resetPasswordTokenExpiry: new Date(Date.now() + 900000), // 15 mins
+    });
+
+    // send email to the user
+    return await this.emailService.sendResetPasswordEmail(email, token);
+  }
+
+  /**
+   * Reset password
+   * Reference: https://medium.com/@wkwong.nathan/implement-forgot-reset-password-flow-with-nest-js-2bce846b0495
+   *
+   */
+  async resetPassword(token: string, password: string) {
+    // find user by reset password token
+    const user = await this.userService.findByResetPasswordToken(token);
+    if (!user) {
+      throw new BadRequestException("Invalid reset password token");
+    }
+
+    // check if the token has expired
+    const { resetPasswordTokenExpiry: expiry } = user;
+    if (!expiry || (expiry && expiry < new Date())) {
+      throw new BadRequestException("Reset password token has expired");
+    }
+
+    // hash the new password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // update user password and reset password token
+    await this.userService.update(user.id, {
+      password: hashedPassword,
+      resetPasswordToken: null,
+      resetPasswordTokenExpiry: null,
+      updatedAt: new Date(),
+    });
+
+    // revoke all sessions tokens (refresh token) related to the user
+    await this.sessionsService.revokeAllSessions(user.id);
+
+    return { message: "Password reset successfully" };
   }
 
   /**

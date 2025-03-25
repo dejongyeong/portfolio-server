@@ -1,8 +1,10 @@
 import {
+  Body,
   Controller,
   HttpCode,
   HttpStatus,
   Post,
+  Query,
   Req,
   Res,
   UseGuards,
@@ -11,6 +13,7 @@ import { ConfigService } from "@nestjs/config";
 import { ApiOkResponse, ApiTags } from "@nestjs/swagger";
 import { Response } from "express";
 
+import { ValidationPipe } from "../common/pipe/validation.pipe";
 import { UserEntity } from "../users/entities/user.entity";
 import { AuthService } from "./auth.service";
 import { Public } from "./decorators/public.decorator";
@@ -70,6 +73,25 @@ export class AuthController {
     res.clearCookie("refresh_token");
 
     return { message: "Logout successfully" };
+  }
+
+  @Public()
+  @Post("forgot-password")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async forgotPassword(
+    @Body(new ValidationPipe()) { email }: { email: string },
+  ) {
+    return await this.authService.forgotPassword(email);
+  }
+
+  @Public()
+  @Post("reset-password")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async resetPassword(
+    @Query("token") token: string,
+    @Body(new ValidationPipe()) { password }: { password: string },
+  ) {
+    return await this.authService.resetPassword(token, password);
   }
 
   @Post("refresh-token")

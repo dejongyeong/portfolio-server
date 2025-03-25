@@ -4,6 +4,9 @@ import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 
 import { PrismaModule } from "../common/prisma/prisma.module";
+import { EmailModule } from "../email/email.module";
+import { EmailService } from "../email/email.service";
+import { ResendService } from "../email/resend/resend.service";
 import { SessionsService } from "../sessions/sessions.service";
 import { UsersModule } from "../users/users.module";
 import { AuthController } from "./auth.controller";
@@ -31,10 +34,13 @@ import { LocalStrategy } from "./strategies/local.strategy";
       }),
     }),
     UsersModule,
+    EmailModule,
   ],
   providers: [
     AuthService,
     SessionsService,
+    EmailService,
+    ResendService,
     LocalStrategy,
     JwtStrategy,
     JwtRefreshStrategy,

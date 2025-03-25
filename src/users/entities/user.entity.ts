@@ -16,6 +16,12 @@ export class UserEntity implements User {
   @Exclude()
   password: string;
 
+  @Exclude()
+  resetPasswordToken: string | null;
+
+  @Exclude()
+  resetPasswordTokenExpiry: Date | null;
+
   @ApiPropertyOptional({ type: Date, default: new Date() })
   createdAt: Date;
 

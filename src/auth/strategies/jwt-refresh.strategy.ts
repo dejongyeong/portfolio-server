@@ -1,8 +1,4 @@
-import {
-  ForbiddenException,
-  Injectable,
-  InternalServerErrorException,
-} from "@nestjs/common";
+import { ForbiddenException, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
 import { Request } from "express";
@@ -21,12 +17,7 @@ export class JwtRefreshStrategy extends PassportStrategy(
     private readonly authService: AuthService,
     private readonly sessionsService: SessionsService,
   ) {
-    const secret = configService.get<string>("auth.jwtRefreshSecret");
-    if (!secret) {
-      throw new InternalServerErrorException(
-        "JWT_REFRESH_SECRET is not defined in environment",
-      );
-    }
+    const secret = configService.getOrThrow<string>("auth.jwtRefreshSecret");
 
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
