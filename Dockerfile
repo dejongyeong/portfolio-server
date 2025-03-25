@@ -51,8 +51,7 @@ COPY --chown=node:node --from=build /app/node_modules ./node_modules
 COPY --chown=node:node --from=build /app/prisma ./prisma
 
 
-ARG PORT
-EXPOSE ${PORT:-3000}
+EXPOSE 8080
 
 # start the server using the production build
 CMD ["node", "dist/main.js"]

@@ -41,7 +41,7 @@ async function bootstrap() {
   app.use(cookieParser());
 
   app.enableCors();
-  await app.listen(configService.get<number>("app.port", 3000));
+  await app.listen(configService.get<number>("app.port", 8080));
 }
 
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
