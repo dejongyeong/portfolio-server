@@ -1,0 +1,14 @@
+services:
+  app-prod:
+    container_name: portfolio-app-prod
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "8080:3000"
+    profiles:
+      - prod # docker compose --profile prod up --build
+
+# reference: https://github.com/ghulamabbas2/docker-with-nestjs

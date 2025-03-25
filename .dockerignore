@@ -1,0 +1,17 @@
+# versioning and metadata
+.git
+.gitignore
+.dockerignore
+
+# build dependencies
+dist
+coverage
+node_modules
+
+# environment
+.env
+
+# files not required for production
+README.md
+Dockerfile
+npm-debug.log
