@@ -18,10 +18,15 @@ describe("AppController (e2e)", () => {
     await app.init();
   });
 
-  it("/ (GET)", () => {
+  it("/projects (GET)", () => {
     return request(app.getHttpServer())
-      .get("/")
+      .get("/projects")
       .expect(200)
-      .expect("Hello World!");
+      .expect((res) => {
+        expect(res.body).toBeInstanceOf(Array);
+
+        // optionally we can check each item in the array
+        // is an object with the expected properties
+      });
   });
 });
