@@ -1,3 +1,10 @@
+## [1.11.2](https://github.com/dejongyeong/portfolio-server/compare/v1.11.1...v1.11.2) (2025-03-25)
+
+
+### Bug Fixes
+
+* use port 8080 for gcloud ([1dfaf9a](https://github.com/dejongyeong/portfolio-server/commit/1dfaf9a2f3ef4976c92a185da128e1a7b8a2ba0a))
+
 ## [1.11.1](https://github.com/dejongyeong/portfolio-server/compare/v1.11.0...v1.11.1) (2025-03-25)
 
 
