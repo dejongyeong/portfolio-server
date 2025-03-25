@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/dejongyeong/portfolio-server/compare/v1.11.0...v1.11.1) (2025-03-25)
+
+
+### Bug Fixes
+
+* do not use legacy key value format ([bd0dfe7](https://github.com/dejongyeong/portfolio-server/commit/bd0dfe704bffeaee82dda2573c9bd65edb2f1f8f))
+
 # [1.11.0](https://github.com/dejongyeong/portfolio-server/compare/v1.10.0...v1.11.0) (2025-03-25)
 
 
