@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/dejongyeong/portfolio-server/compare/v1.9.0...v1.10.0) (2025-03-25)
+
+
+### Features
+
+* implement reset password and send reset password link via email ([4883020](https://github.com/dejongyeong/portfolio-server/commit/4883020479d3482da8b30cf21d02ba12a77d8d81))
+
 # [1.9.0](https://github.com/dejongyeong/portfolio-server/compare/v1.8.0...v1.9.0) (2025-03-24)
 
 
