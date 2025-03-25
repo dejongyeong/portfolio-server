@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/dejongyeong/portfolio-server/compare/v1.10.0...v1.11.0) (2025-03-25)
+
+
+### Features
+
+* include docker containerization into app ([4dd4ef4](https://github.com/dejongyeong/portfolio-server/commit/4dd4ef41ec2165d0a6c1a9744e271358c6cc3f3a))
+
 # [1.10.0](https://github.com/dejongyeong/portfolio-server/compare/v1.9.0...v1.10.0) (2025-03-25)
 
 
