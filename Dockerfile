@@ -25,7 +25,7 @@ COPY --chown=node:node . .
 RUN npm run build
 
 # set node_env environment variable to production
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 # removes existing node_modules directory and passing in --omit-dev flag
 # to ensure that only the production dependencies are installed, ensuring node_modules
