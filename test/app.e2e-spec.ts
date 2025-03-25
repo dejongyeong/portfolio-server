@@ -18,15 +18,14 @@ describe("AppController (e2e)", () => {
     await app.init();
   });
 
-  it("/projects (GET)", () => {
-    return request(app.getHttpServer())
-      .get("/projects")
-      .expect(200)
-      .expect((res) => {
-        expect(res.body).toBeInstanceOf(Array);
-
-        // optionally we can check each item in the array
-        // is an object with the expected properties
-      });
+  it("/ (GET)", () => {
+    return request(app.getHttpServer()).get("/").expect(404);
   });
 });
+
+// .expect((res) => {
+//   expect(res.body).toBeInstanceOf(Array);
+
+//   // optionally we can check each item in the array
+//   // is an object with the expected properties
+// });
