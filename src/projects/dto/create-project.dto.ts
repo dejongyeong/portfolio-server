@@ -1,7 +1,9 @@
 import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { Type } from "class-transformer";
 import {
   IsArray,
   IsBoolean,
+  IsDate,
   IsInt,
   IsNotEmpty,
   IsOptional,
@@ -59,4 +61,12 @@ export class CreateProjectDto {
   @IsString()
   @IsUrl()
   imageLink: string;
+
+  @IsDate()
+  @Type(() => Date)
+  createdAt: Date = new Date();
+
+  @IsDate()
+  @Type(() => Date)
+  updatedAt: Date = new Date();
 }

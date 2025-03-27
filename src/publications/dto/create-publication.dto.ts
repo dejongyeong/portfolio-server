@@ -53,4 +53,12 @@ export class CreatePublicationDto {
   @IsDate()
   @Type(() => Date)
   publishedAt: Date;
+
+  @IsDate()
+  @Type(() => Date)
+  createdAt: Date = new Date();
+
+  @IsDate()
+  @Type(() => Date)
+  updatedAt: Date = new Date();
 }

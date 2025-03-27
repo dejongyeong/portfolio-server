@@ -40,7 +40,16 @@ async function bootstrap() {
   // cookie-parser
   app.use(cookieParser());
 
-  app.enableCors();
+  app.enableCors({
+    origin: [
+      "http://localhost:3000",
+      "http://localhost:8080",
+      "https://portfolio-client.vercel.app",
+      "https://www.dejongyeong.com/",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+    credentials: true,
+  });
   await app.listen(configService.get<number>("app.port", 8080));
 }
 

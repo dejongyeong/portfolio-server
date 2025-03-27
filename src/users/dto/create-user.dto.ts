@@ -3,14 +3,14 @@ import { Type } from "class-transformer";
 import { IsDate, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class CreateUserDto {
+  @ApiProperty({ type: String, format: "email" })
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ type: String, format: "email" })
   email: string;
 
+  @ApiProperty({ type: String, format: "password" })
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ type: String, format: "password" })
   password: string;
 
   @IsString()
@@ -24,5 +24,9 @@ export class CreateUserDto {
 
   @IsDate()
   @Type(() => Date)
-  updatedAt: Date;
+  createdAt: Date = new Date();
+
+  @IsDate()
+  @Type(() => Date)
+  updatedAt: Date = new Date();
 }

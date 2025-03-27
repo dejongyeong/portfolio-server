@@ -15,7 +15,9 @@ export class PublicationsService {
   }
 
   findAll() {
-    return this.prisma.publication.findMany();
+    return this.prisma.publication.findMany({
+      orderBy: { publishedAt: "desc" },
+    });
   }
 
   findOne(id: string) {

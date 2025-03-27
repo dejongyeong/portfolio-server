@@ -1,3 +1,5 @@
+## Tutorial: https://medium.com/@abdullaharaheel/simplify-your-node-js-nest-js-deployment-step-by-step-guide-with-docker-and-google-cloud-97155c3ccfcc
+
 #########################################################################
 #
 # BUILD FOR PRODUCTION

@@ -17,7 +17,6 @@ import { ValidationPipe } from "../common/pipe/validation.pipe";
 import { UserEntity } from "../users/entities/user.entity";
 import { AuthService } from "./auth.service";
 import { Public } from "./decorators/public.decorator";
-import { AuthEntity } from "./entities/auth.entity";
 import { JwtAuthGuard } from "./guards/jwt-auth.guard";
 import { JwtRefreshGuard } from "./guards/jwt-refresh.guard";
 import { LocalAuthGuard } from "./guards/local-auth.guard";
@@ -42,10 +41,7 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post("login")
   @HttpCode(HttpStatus.OK)
-  @ApiOkResponse({
-    type: AuthEntity,
-    description: "User login with email and password",
-  })
+  @ApiOkResponse({ description: "User login with email and password" })
   async login(
     @Req() req: { user: UserEntity },
 

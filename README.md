@@ -1,3 +1,19 @@
+# Portfolio Server
+
+The <i>Portfolio Server</i> is an API service designed to facilitate the execution of CRUD (Create, Read, Update, Delete) operations for managing projects and publications. The primary objective of this initiative is to eliminate the need for hardcoding project and publication details directly into the source code. By leveraging this service, the development process becomes more flexible and maintainable, enabling dynamic interaction with project and publication data without the constraints of static code. This approach enhances scalability and ensures that content can be managed and updated seamlessly, improving both the efficiency and longevity of the project.
+
+![NestJS](https://img.shields.io/badge/nestjs-%23E0234E.svg?logo=nestjs&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?logo=typescript&logoColor=white) ![Vitest](https://img.shields.io/badge/-Vitest-252529?logo=vitest&logoColor=FCC72B) ![Prisma](https://img.shields.io/badge/Prisma-3982CE?logo=Prisma&logoColor=white) ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?logo=githubactions&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?logo=docker&logoColor=white) ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?logo=google-cloud&logoColor=white)
+
+#### Helpful guides and tutorials:
+
+- Simplify Your Node.js/Nest.js Deployment: Step-by-Step Guide with Docker and Google Cloud by [Abdullah Raheel](https://medium.com/@abdullaharaheel/simplify-your-node-js-nest-js-deployment-step-by-step-guide-with-docker-and-google-cloud-97155c3ccfcc).
+- GKE and Cloud Run Use Cases by [Google Cloud](https://cloud.google.com/kubernetes-engine/docs/concepts/gke-and-cloud-run).
+
+<br />
+<hr />
+<br />
+<br />
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>

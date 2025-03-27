@@ -120,6 +120,7 @@ export class AuthService {
     await this.userService.update(user.id, {
       resetPasswordToken: token,
       resetPasswordTokenExpiry: new Date(Date.now() + 900000), // 15 mins
+      updatedAt: new Date(),
     });
 
     // send email to the user

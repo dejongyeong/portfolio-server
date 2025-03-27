@@ -1,9 +1,6 @@
-import { ApiProperty } from "@nestjs/swagger";
+// note: auth entity might not be used by other resources
 
 export class AuthEntity {
-  @ApiProperty({ type: String })
   access_token: string;
-
-  @ApiProperty({ type: String })
   refresh_token: string;
 }

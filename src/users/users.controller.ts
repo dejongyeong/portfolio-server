@@ -2,10 +2,10 @@ import {
   Body,
   Controller,
   Get,
+  NotFoundException,
   Param,
   ParseUUIDPipe,
   Patch,
-  UnauthorizedException,
   UseGuards,
 } from "@nestjs/common";
 import { ApiBearerAuth, ApiOkResponse } from "@nestjs/swagger";
@@ -27,20 +27,7 @@ export class UsersController {
     const user = await this.usersService.findById(id);
 
     if (!user) {
-      throw new UnauthorizedException(`User not found`);
-    }
-    return new UserEntity(user);
-  }
-
-  @Get(":email")
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
-  @ApiOkResponse({ type: UserEntity, description: "Get user by email" })
-  async findByEmail(@Param("email") email: string) {
-    const user = await this.usersService.findByEmail(email);
-
-    if (!user) {
-      throw new UnauthorizedException(`User not found`);
+      throw new NotFoundException(`User not found`);
     }
     return new UserEntity(user);
   }
