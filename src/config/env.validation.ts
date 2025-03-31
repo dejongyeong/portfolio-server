@@ -17,4 +17,7 @@ export const envValidationSchema = Joi.object({
     "30d",
   ),
   RESEND_API_KEY: Joi.string().required(),
+  GCS_BUCKET_NAME: Joi.string().required(),
+  GCS_CLIENT_EMAIL: Joi.string().required(),
+  GCS_PRIVATE_KEY: Joi.string().required(),
 });

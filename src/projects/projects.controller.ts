@@ -53,7 +53,6 @@ export class ProjectsController {
   @ApiOkResponse({ type: Project, description: "Get project by ID" })
   async findOne(@Param("id", ParseUUIDPipe) id: string) {
     const project = await this.projectsService.findOne(id);
-
     if (!project) {
       throw new NotFoundException(`Project with ID ${id} not found`);
     }

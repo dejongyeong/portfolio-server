@@ -14,6 +14,7 @@ import { ProjectsModule } from "./projects/projects.module";
 import { PublicationsModule } from "./publications/publications.module";
 import { SessionsModule } from "./sessions/sessions.module";
 import { SessionsService } from "./sessions/sessions.service";
+import { UploadModule } from "./upload/upload.module";
 import { UsersModule } from "./users/users.module";
 
 @Module({
@@ -34,6 +35,7 @@ import { UsersModule } from "./users/users.module";
     AuthModule,
     UsersModule,
     SessionsModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [AppService, SessionsService, EmailService, ResendService],

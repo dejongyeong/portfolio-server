@@ -25,4 +25,16 @@ const EmailConfig = registerAs("email", () => ({
   resend: process.env.RESEND_API_KEY,
 }));
 
-export const configurations = [AppConfig, DbConfig, AuthConfig, EmailConfig];
+const GcsConfig = registerAs("gcs", () => ({
+  bucketName: process.env.GCS_BUCKET_NAME,
+  clientEmail: process.env.GCS_CLIENT_EMAIL,
+  privateKey: process.env.GCS_PRIVATE_KEY?.replace(/\\n/g, "\n"),
+}));
+
+export const configurations = [
+  AppConfig,
+  DbConfig,
+  AuthConfig,
+  EmailConfig,
+  GcsConfig,
+];
