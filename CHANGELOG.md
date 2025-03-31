@@ -1,3 +1,11 @@
+# [1.12.0](https://github.com/dejongyeong/portfolio-server/compare/v1.11.2...v1.12.0) (2025-03-31)
+
+
+### Features
+
+* allow user to get signed url for file upload ([784a617](https://github.com/dejongyeong/portfolio-server/commit/784a617c6a518888db939636583e40760e006587))
+* upload image with signed url ([45424c4](https://github.com/dejongyeong/portfolio-server/commit/45424c4e0cac7d9bad137ea222749733a9779e11))
+
 ## [1.11.2](https://github.com/dejongyeong/portfolio-server/compare/v1.11.1...v1.11.2) (2025-03-25)
 
 
