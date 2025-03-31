@@ -76,6 +76,9 @@ jobs:
           JWT_REFRESH_EXPIRES_IN: ${{ vars.JWT_REFRESH_EXPIRES_IN }}
           FRONTEND_URL: ${{ vars.FRONTEND_URL }}
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          GCS_BUCKET_NAME: ${{ secrets.GCS_BUCKET_NAME }}
+          GCS_CLIENT_EMAIL: ${{ secrets.GCS_CLIENT_EMAIL }}
+          GCS_PRIVATE_KEY: ${{ secrets.GCS_PRIVATE_KEY }}
 
   deploy:
     name: Deploy to Docker Hub
