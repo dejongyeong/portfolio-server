@@ -19,6 +19,7 @@ import {
 
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { ValidationPipe } from "../common/pipe/validation.pipe";
+import { UploadService } from "../upload/upload.service";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { UpdateProjectDto } from "./dto/update-project.dto";
 import { Project } from "./entities/project.entity";
@@ -27,7 +28,10 @@ import { ProjectsService } from "./projects.service";
 @Controller({ path: "projects", version: "1" })
 @ApiTags("Projects")
 export class ProjectsController {
-  constructor(private readonly projectsService: ProjectsService) {}
+  constructor(
+    private readonly projectsService: ProjectsService,
+    private readonly uploadService: UploadService,
+  ) {}
 
   @Post()
   @UseGuards(JwtAuthGuard)
@@ -67,6 +71,20 @@ export class ProjectsController {
     @Param("id", ParseUUIDPipe) id: string,
     @Body(new ValidationPipe()) updateProjectDto: UpdateProjectDto,
   ) {
+    const project = await this.projectsService.findOne(id);
+    if (!project) {
+      throw new NotFoundException(`Project with ID ${id} not found`);
+    }
+
+    // check if image link is changed and delete old image from gcs
+    if (project.imageLink && updateProjectDto.imageLink !== project.imageLink) {
+      // delete old image from gcs using filename
+      // filename is the last part of the image link after the last "/"
+      await this.uploadService.delete(
+        project.imageLink.split("/").pop() as string,
+      );
+    }
+
     // record not found handle by PrismaClientExceptionFilter
     return this.projectsService.update(id, updateProjectDto);
   }
