@@ -40,7 +40,9 @@ export class UploadService {
 
   async delete(filename: string) {
     const file = this.storage.bucket(this.bucket).file(filename);
-    if (!file) {
+
+    const [exists] = await file.exists();
+    if (!exists) {
       throw new NotFoundException(`File ${filename} not found`);
     }
 
