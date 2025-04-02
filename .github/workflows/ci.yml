@@ -33,6 +33,7 @@ jobs:
         run: npm run build
 
   test:
+    needs: "build"
     strategy:
       matrix:
         node-version: [23.x]

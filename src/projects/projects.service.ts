@@ -8,36 +8,36 @@ import { UpdateProjectDto } from "./dto/update-project.dto";
 export class ProjectsService {
   constructor(private prisma: PrismaService) {}
 
-  create(createProjectDto: CreateProjectDto) {
+  async create(createProjectDto: CreateProjectDto) {
     return this.prisma.project.create({
       data: createProjectDto,
     });
   }
 
-  findAll() {
+  async findAll() {
     return this.prisma.project.findMany();
   }
 
-  getFeatured() {
+  async getFeatured() {
     return this.prisma.project.findMany({
       where: { isFeatured: true },
     });
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     return this.prisma.project.findUnique({
       where: { id },
     });
   }
 
-  update(id: string, updateProjectDto: UpdateProjectDto) {
+  async update(id: string, updateProjectDto: UpdateProjectDto) {
     return this.prisma.project.update({
       where: { id },
       data: updateProjectDto,
     });
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     return this.prisma.project.delete({ where: { id } });
   }
 }

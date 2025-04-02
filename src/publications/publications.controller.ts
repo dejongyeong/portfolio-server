@@ -8,6 +8,7 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from "@nestjs/common";
 import {
@@ -47,8 +48,11 @@ export class PublicationsController {
     type: [Publication],
     description: "Get all publications",
   })
-  async findAll() {
-    return this.publicationsService.findAll();
+  async findAll(
+    @Query("page") page: number = 1,
+    @Query("limit") limit: number = 10,
+  ) {
+    return this.publicationsService.findAll(page, limit);
   }
 
   @Get(":id")
