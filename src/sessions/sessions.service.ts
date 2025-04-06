@@ -30,13 +30,11 @@ export class SessionsService {
   }
 
   revokeAllSessions(uid: string) {
-    return this.prisma.session.updateMany({
+    // delete session instead of revoking it due to db free plan to save space
+    return this.prisma.session.deleteMany({
       where: {
         userId: uid,
         revoked: false,
-      },
-      data: {
-        revoked: true,
       },
     });
   }
