@@ -110,7 +110,7 @@ export class AuthService {
   async forgotPassword(email: string) {
     const user = await this.userService.findByEmail(email.toLowerCase().trim());
     if (!user) {
-      throw new NotFoundException("User not found");
+      throw new NotFoundException("Email address not found");
     }
 
     // generate a reset password token
@@ -145,12 +145,10 @@ export class AuthService {
       throw new BadRequestException("Reset password token has expired");
     }
 
-    // hash the new password
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     // update user password and reset password token
+    // password is hashed in the update method
     await this.userService.update(user.id, {
-      password: hashedPassword,
+      password: password,
       resetPasswordToken: null,
       resetPasswordTokenExpiry: null,
       updatedAt: new Date(),
