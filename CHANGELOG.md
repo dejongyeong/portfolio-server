@@ -1,3 +1,10 @@
+## [1.12.1](https://github.com/dejongyeong/portfolio-server/compare/v1.12.0...v1.12.1) (2025-04-06)
+
+
+### Bug Fixes
+
+* resolve password hashed twice when updating password ([b1f1d00](https://github.com/dejongyeong/portfolio-server/commit/b1f1d00e97ae5db10b31ce73e8d2f69663c7ce87))
+
 # [1.12.0](https://github.com/dejongyeong/portfolio-server/compare/v1.11.2...v1.12.0) (2025-03-31)
 
 
