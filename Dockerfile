@@ -14,7 +14,7 @@ WORKDIR /app
 COPY --chown=node:node package*.json ./
 
 # install dependencies
-RUN npm ci --ignore-scripts
+RUN npm install
 
 # prisma client generation
 COPY --chown=node:node ./prisma ./prisma
