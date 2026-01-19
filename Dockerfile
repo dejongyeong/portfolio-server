@@ -6,7 +6,7 @@
 # 
 #########################################################################
 
-FROM node:23.10.0-alpine3.20 AS build
+FROM node:25.3.0-alpine3.23 AS build
 
 WORKDIR /app
 
@@ -44,7 +44,7 @@ USER node
 # 
 #########################################################################
 
-FROM node:23.10.0-alpine3.20 AS production
+FROM node:25.3.0-alpine3.23 AS production
 
 # copy bundled code from build stage to production image
 COPY --chown=node:node --from=build /app/package*.json ./
