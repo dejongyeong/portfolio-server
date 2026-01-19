@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
+import type { StringValue } from "ms";
 
 import { PrismaModule } from "../common/prisma/prisma.module";
 import { EmailModule } from "../email/email.module";
@@ -29,7 +30,9 @@ import { LocalStrategy } from "./strategies/local.strategy";
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>("auth.jwtSecret"),
         signOptions: {
-          expiresIn: configService.get<string | number>("auth.jwtExpiresIn"), // short-lived access token
+          expiresIn: configService.get<StringValue | number>(
+            "auth.jwtExpiresIn",
+          ),
         },
       }),
     }),

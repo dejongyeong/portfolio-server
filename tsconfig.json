@@ -7,7 +7,6 @@
     "target": "es2023",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": ".",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,
@@ -19,9 +18,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "paths": {
-      "@/*": ["src/*"],
-      "@config/*": ["src/config/*"],
-      "@test/*": ["test/*"]
+      "@/*": ["./src/*"],
+      "@config/*": ["./src/config/*"],
+      "@test/*": ["./test/*"]
     }
   },
   "include": ["src/**/*", "test/**/*", "prisma/**/*.ts"],

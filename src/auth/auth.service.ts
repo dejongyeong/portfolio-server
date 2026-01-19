@@ -10,6 +10,7 @@ import { randomStringGenerator } from "@nestjs/common/utils/random-string-genera
 import { ConfigService } from "@nestjs/config";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from "bcryptjs";
+import type { StringValue } from "ms";
 
 import { EmailService } from "../email/email.service";
 import { SessionsService } from "../sessions/sessions.service";
@@ -212,13 +213,15 @@ export class AuthService {
     // access token is the bearer token
     const accessToken = await this.jwtService.signAsync(payload, {
       secret: this.configService.get<string>("auth.jwtSecret"),
-      expiresIn: this.configService.get<string | number>("auth.jwtExpiresIn"),
+      expiresIn: this.configService.get<StringValue | number>(
+        "auth.jwtExpiresIn",
+      ),
     });
 
     // refresh token is the token that is used to get a new access token
     // longer expiry date
     const refreshToken = await this.jwtService.signAsync(payload, {
-      expiresIn: this.configService.get<string | number>(
+      expiresIn: this.configService.get<StringValue | number>(
         "auth.jwtRefreshExpiresIn",
       ),
       secret: this.configService.get<string>("auth.jwtRefreshSecret"),
