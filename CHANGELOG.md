@@ -1,3 +1,10 @@
+## [1.12.2](https://github.com/dejongyeong/portfolio-server/compare/v1.12.1...v1.12.2) (2026-01-19)
+
+
+### Bug Fixes
+
+* resolve deprecated typescript baseurl ([f193510](https://github.com/dejongyeong/portfolio-server/commit/f193510eb8689d55f891861d34533db948dcd9d0))
+
 ## [1.12.1](https://github.com/dejongyeong/portfolio-server/compare/v1.12.0...v1.12.1) (2025-04-06)
 
 
